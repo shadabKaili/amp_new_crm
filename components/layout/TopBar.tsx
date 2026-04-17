@@ -238,13 +238,28 @@ export function TopBar() {
                     required
                 />
 
-                <Input
-                    label="Profile Photo URL"
-                    value={avatarUrl}
-                    onChange={(e) => setAvatarUrl(e.target.value)}
-                    placeholder="https://..."
-                    helperText="Optional. Add a direct image URL for your profile photo."
-                />
+                <div className="space-y-1.5">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Profile Photo</label>
+                    <div className="flex items-center gap-3">
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => fileInputRef.current?.click()}
+                            disabled={uploading}
+                            className="w-full justify-start text-gray-600 dark:text-gray-400"
+                        >
+                            {uploading ? (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            ) : (
+                                <Camera className="mr-2 h-4 w-4" />
+                            )}
+                            {avatarUrl ? 'Change profile photo' : 'Upload profile photo'}
+                        </Button>
+                    </div>
+                    <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                        Recommended: Square image, PNG or JPG (max 2MB).
+                    </p>
+                </div>
 
                 {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
 

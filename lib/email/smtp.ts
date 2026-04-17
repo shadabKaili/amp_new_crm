@@ -211,14 +211,14 @@ export async function sendMail(config: SmtpConfig, message: MailMessage): Promis
                 throw createError('EHLO failed after STARTTLS');
             }
 
-            return sendMailOverConnectedSocket(socket, config, message);
+            return await sendMailOverConnectedSocket(socket, config, message);
         }
 
         if (!config.secure) {
             throw createError('server does not support STARTTLS');
         }
 
-        return sendMailOverConnectedSocket(socket, config, message);
+        return await sendMailOverConnectedSocket(socket, config, message);
     } finally {
         if (!socket.destroyed) {
             socket.end();
